@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import permissions
 from . import serializers
-from .send_mail import send_confirmation_email
+from .send_mail import send_confirmation_email, send_reset_email
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 User = get_user_model()
@@ -54,3 +54,30 @@ class LogoutView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response('Successfully logged out', status=200)
+
+
+class ForgotPasswordView(APIView):
+    permission_classes = (permissions.AllowAny,)
+
+    def post(self, request):
+        serializer = serializers.ForgotPasswordSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        try:
+            email = serializer.data.get('email')
+            user = User.objects.get(email=email)
+            user.create_activation_code()
+            user.save()
+            send_reset_email(user)
+            return Response('Check your email. We sent a code', 200)
+        except User.DoesNotExist:
+            return Response('User with this email does not exists', status=400)
+
+
+class RestorePasswordView(APIView):
+    permission_classes = (permissions.AllowAny,)
+
+    def post(self, request):
+        serializer = serializers.RestorePasswordSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response('Password changed successfully')
