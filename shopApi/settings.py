@@ -199,6 +199,6 @@ CKEDITOR_CONFIGS = {
     },
 }
 
-# oh, shiitake
+# oh, shiit
 # oh noooooooo
 # oh my god

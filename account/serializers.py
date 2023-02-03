@@ -72,3 +72,9 @@ class RestorePasswordSerializer(serializers.Serializer):
         user.activation_code = ''
         user.save()
         return user
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        exclude = ('password',)

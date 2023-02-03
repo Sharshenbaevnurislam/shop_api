@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import render
+from rest_framework.generics import ListAPIView
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -81,3 +82,8 @@ class RestorePasswordView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response('Password changed successfully')
+
+
+class UserListApiView(ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = serializers.UserSerializer
