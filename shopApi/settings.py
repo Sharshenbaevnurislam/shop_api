@@ -146,7 +146,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('EMAIL_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_PASSWORD')
 
-
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
@@ -199,3 +198,7 @@ CKEDITOR_CONFIGS = {
         'width': 300,
     },
 }
+
+# oh, shiitake
+# oh noooooooo
+# oh my god
