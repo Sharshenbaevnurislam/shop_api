@@ -3,9 +3,10 @@ from django.core.mail import send_mail
 
 def send_confirmation_email(user, code):
     full_link = f'http://localhost:8000/api/v1/accounts/activate/{code}/'
+    full_link_server = f'http://35.201.182.147/api/v1/accounts/activate/{code}/'
     send_mail(
         'Здравствуйте вам нужно aктивирорвать ваш аккаунт',
-        f'Нажмите сюда чтобы а  ктивировать ваш аккаунт: \n{full_link}',
+        f'Нажмите сюда чтобы а  aктивировать ваш аккаунт: \n{full_link}\n{full_link_server}',
         'joseph@gmail.com',
         [user],
         fail_silently=False
